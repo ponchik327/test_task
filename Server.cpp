@@ -14,7 +14,8 @@ public:
     std::string RegisterNewUser(const std::string& aUserName)
     {
         size_t newUserId = mUsers.size();
-        mUsers[newUserId] = aUserName;
+        mUsers[newUserId].name = aUserName;
+        mUsers[newUserId].balance = {};
 
         return std::to_string(newUserId);
     }
@@ -29,13 +30,27 @@ public:
         }
         else
         {
-            return userIt->second;
+            return userIt->second.name;
+        }
+    }
+
+    // Запрос баланса клиента по ID
+    std::string GetUserBalance(const std::string& aUserId)
+    {
+        const auto userIt = mUsers.find(std::stoi(aUserId));
+        if (userIt == mUsers.cend())
+        {
+            return "Error! Unknown User";
+        }
+        else
+        {
+            return userIt->second.balance.ToString();
         }
     }
 
 private:
-    // <UserId, UserName>
-    std::map<size_t, std::string> mUsers;
+    // <UserId, User>
+    std::map<size_t, User> mUsers;
 };
 
 Core& GetCore()
@@ -89,6 +104,12 @@ public:
                 // Это реквест на приветствие.
                 // Находим имя пользователя по ID и приветствуем его по имени.
                 reply = "Hello, " + GetCore().GetUserName(j["UserId"]) + "!\n";
+            }
+            else if (reqType == Requests::Balance)
+            {
+                // Это реквест на проверку суммы баланса.
+                // Находим имя пользователя по ID и говорим его баланс.
+                reply = "Your balance: \n" + GetCore().GetUserBalance(j["UserId"]) + '\n';
             }
 
             boost::asio::async_write(socket_,

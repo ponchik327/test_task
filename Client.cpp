@@ -67,7 +67,8 @@ int main()
             // Тут реализовано "бесконечное" меню.
             std::cout << "Menu:\n"
                          "1) Hello Request\n"
-                         "2) Exit\n"
+                         "2) Check Balance\n"
+                         "3) Exit\n"
                          << std::endl;
 
             short menu_option_num;
@@ -85,6 +86,12 @@ int main()
                     break;
                 }
                 case 2:
+                {
+                    SendMessage(s, my_id, Requests::Balance, "");
+                    std::cout << ReadMessage(s);
+                    break;
+                }
+                case 3:
                 {
                     exit(0);
                     break;
