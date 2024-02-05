@@ -45,29 +45,36 @@ std::string ProcessRegistration(tcp::socket& aSocket)
     return ReadMessage(aSocket);
 }
 
+// шаблонная функция для считыванния строк и чисел из потока
 template <typename Type>
 Type Parse(const std::string& greeting,
            const std::string& error)
 {
     Type answer;
-    std::cout << greeting 
-              << std::endl; 
-    while(!(std::cin >> answer))
-    {
-        std::cout << error 
-                  << std::endl;
+    for (;;) {
+        std::cout << greeting << std::flush;
+        if ((std::cin >> answer).good()) break;
+        std::cin.clear();
+        std::cout << error << '\n';
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
     }
-    
     return answer;
 }
 
+// формирует из потока ввода строку с данными торговой заявки 
 std::string ParseTradeApp()
 {
     nlohmann::json tradeApp;
+    
+    // обрабатываем тип сделки
     tradeApp["Type"] = Parse<std::string>("Enter type(sell or buy): ", 
                                           "Error parse type");
+
+    // обрабатываем количество долларов (объёма)                                      
     tradeApp["Volume"] = Parse<int>("Enter volume: ", 
                                     "Error parse volume");
+
+    // обрабатываем рубллей за доллар (цену)
     tradeApp["Price"] = Parse<int>("Enter price: ", 
                                    "Error parse price");
     return tradeApp.dump();                               
@@ -107,8 +114,6 @@ int main()
             {
                 case 1:
                 {
-                    // Для примера того, как может выглядить взаимодействие с сервером
-                    // реализован один единственный метод - Hello.
                     // Этот метод получает от сервера приветствие с именем клиента,
                     // отправляя серверу id, полученный при регистрации.
                     SendMessage(s, my_id, Requests::Hello, "");
@@ -117,12 +122,16 @@ int main()
                 }
                 case 2:
                 {
+                    // Этот метод получает от сервера значение баланса пользователя,
+                    // отправляя серверу его id.
                     SendMessage(s, my_id, Requests::Balance, "");
                     std::cout << ReadMessage(s);
                     break;
                 }
                 case 3:
                 {
+                    // Этот метод получает от сервера статус операции (success или error),
+                    // отправляя серверу строку с данными о торговой заявке.
                     SendMessage(s, my_id, Requests::AddTradeApp, ParseTradeApp());
                     std::cout << ReadMessage(s);
                     break;

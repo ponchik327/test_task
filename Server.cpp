@@ -50,29 +50,46 @@ public:
         }
     }
 
+    // Создаёт торговую заявку и возвращает статус строкой 
     std::string CreateTradeApp(const std::string& aUserId,
                                const std::string& TradeApplication)
     {
         const std::string error = "Error add trade application\n";
+
+        // парсим json с данными о заявке
         auto ta = nlohmann::json::parse(TradeApplication);
+
+        // проверяем, что данные не пустые
         if (ta["Type"].empty() || ta["Type"].empty() || ta["Type"].empty())
         {
             return error;
-        } 
+        }
+
         TradeApp::Type type = ParseTradeType(ta["Type"]);
         if (type == TradeApp::Type::NotFound)
         {
             return error;
         }
+
         int price = ta["Price"];
         int volume = ta["Volume"];
+
+        // конструируем и добаляем заявку в хранилище
         trade_apps_.emplace_back(std::stoi(aUserId),
                                  type, 
                                  volume,
                                  price
                                 );
+
+        // делаем доступ к заявке через указатель по её id
         int trade_id = trade_apps_.size();
         id_to_trade_app_[trade_id] = &trade_apps_.back();
+
+        // делам доступ к очереди id-заявок по цене
+        // засчёт очереди будет брать самые старые заявки по данной цене
+
+        // цены на покупку и продажу храним в разных контейнерах 
+        // (зачёт внутреннего устройства контейнера-мар цены отсортированны)
         if (type == TradeApp::Type::Buy)
         {
             price_to_ids_for_buy_[price].push(trade_id);
@@ -81,19 +98,27 @@ public:
         {
             price_to_ids_for_sell_[price].push(trade_id);
         }
+
         return "Success\n";
     }
 
+    // Удаляет доступ к торговой заявке и чистит данные о ней
     void DeleteTradeApp(int trade_id)
     {
+        // удаляем id-заявки из очереди по цене
+        // для контенера со сделками на покупку
         int price = id_to_trade_app_[trade_id]->price;
         if (id_to_trade_app_[trade_id]->type == TradeApp::Type::Buy) {
             price_to_ids_for_buy_[price].pop();
+
+            // если это была последняя заявка в очереди, то 
+            // удаляем пару <цена, очередь> из контейнера 
             if (price_to_ids_for_buy_[price].empty()) 
             {
                 price_to_ids_for_buy_.erase(price);
             }
-        } 
+        }
+        // те же самые действия для контенера со сделками на продажу 
         else 
         {
             price_to_ids_for_sell_[price].pop();
@@ -101,10 +126,13 @@ public:
             {
                 price_to_ids_for_sell_.erase(price);
             }
-        } 
+        }
+
+        // удаляем пару <id, указатель> из контенера предоставляющего доступ к заявкам
         id_to_trade_app_.erase(trade_id);
     }
 
+    // Меняет значения балансов участников сделки
     void Transaction(int buy_user_id,
                      int sell_user_id, 
                      int USD, 
@@ -121,64 +149,32 @@ public:
         user_sell.balance.RUB += RUB;
     }
 
+    // Выполняет логику торговой сделки между продавцом и покупателем
     void CalculateMatch(int buy_trade_id, int sell_trade_id)
     {
+        // вытаскиваем указатели на заявки для удобства
         auto buy_app = id_to_trade_app_[buy_trade_id];
         auto sell_app = id_to_trade_app_[sell_trade_id];
 
-        /*int diff = buy_app->volume - sell_app->volume;
-        if (diff > 0)
-        {
-            buy_app->volume -= sell_app->volume;
-            sell_app->volume = 0;
-
-            Transaction(buy_app->user_id, 
-                        sell_app->user_id, 
-                        sell_app->volume,
-                        sell_app->volume * buy_app->price 
-                       );
-            
-            DeleteTradeApp(sell_trade_id);
-        }
-        else if (diff < 0)
-        {
-            sell_app->volume -= buy_app->volume;
-            buy_app->volume = 0;
-            
-            Transaction(buy_app->user_id, 
-                        sell_app->user_id, 
-                        buy_app->volume,
-                        buy_app->volume * buy_app->price 
-                       );
-            
-            DeleteTradeApp(buy_trade_id);
-        }
-        else
-        {
-
-            Transaction(buy_app->user_id, 
-                        sell_app->user_id, 
-                        buy_app->volume,
-                        buy_app->volume * buy_app->price 
-                       );
-            
-            DeleteTradeApp(sell_trade_id);
-            DeleteTradeApp(buy_trade_id);
-        }*/
+        // находим колчиество долларов для сделки
         int min_volume = std::min(buy_app->volume, sell_app->volume);
 
+        // меняем значения балансов участников
         Transaction(buy_app->user_id, 
                     sell_app->user_id, 
                     min_volume,
                     min_volume * buy_app->price 
                    );
 
+        // уменьшаем количество долларов в заявке
         sell_app->volume -= min_volume;
         if (sell_app->volume == 0)
         {
+            // удаляем доступ к заявке в случае, если она закрыта
             DeleteTradeApp(sell_trade_id);
         }
 
+        // те же действия далаем для второй заявки
         buy_app->volume -= min_volume;
         if (buy_app->volume == 0)
         {
@@ -186,17 +182,29 @@ public:
         }
     }
 
+    // Проверяет появились ли в контейнерах две заявки, которые можно оформить в сделку
     void CheckMatch()
     {
+        // переменная показывает необходимо ли считать новую сделку или нет
+        // при первом входе в цикл всегда - нужно
         bool calculations_required = true;
         while (calculations_required)
         {
+            // если нет сделок, то считать нечего
             if (!price_to_ids_for_buy_.empty() && !price_to_ids_for_sell_.empty()) {
+                
+                // для сделки берём 
+                // заявку с максимальной ценой на покупку 
                 const auto max_buy = price_to_ids_for_buy_.rbegin();
+
+                // и минимальной ценой на продажу (засчёт структуры мар-ов цены отсортированны)
                 const auto min_sell = price_to_ids_for_sell_.begin();
+
+                // если условие выполняется, то можем посчитать сделку
                 calculations_required = max_buy->first >= min_sell->first;
                 if (calculations_required)
                 {
+                    // выполняем логику торговой сделки
                     CalculateMatch(max_buy->second.front(),
                                 min_sell->second.front() 
                     );
@@ -294,7 +302,8 @@ public:
                 // Это реквест на добаление информации 
                 // о новой заявке от клиента 
                 reply = GetCore().CreateTradeApp(j["UserId"], j["Message"]);
-
+                
+                // после добавления заявки, проверяем появилась ли новая сделка
                 GetCore().CheckMatch();
             }
 
