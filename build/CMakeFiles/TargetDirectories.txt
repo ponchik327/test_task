@@ -1,4 +1,4 @@
-/home/linuksoid/code_cpp/tz_NtProgress/templateofclientservermatching/build/CMakeFiles/Server.dir
-/home/linuksoid/code_cpp/tz_NtProgress/templateofclientservermatching/build/CMakeFiles/Client.dir
-/home/linuksoid/code_cpp/tz_NtProgress/templateofclientservermatching/build/CMakeFiles/edit_cache.dir
-/home/linuksoid/code_cpp/tz_NtProgress/templateofclientservermatching/build/CMakeFiles/rebuild_cache.dir
+/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles/Server.dir
+/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles/Client.dir
+/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles/edit_cache.dir
+/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles/rebuild_cache.dir

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <boost/asio.hpp>
 
 #include "Common.hpp"
@@ -44,6 +45,34 @@ std::string ProcessRegistration(tcp::socket& aSocket)
     return ReadMessage(aSocket);
 }
 
+template <typename Type>
+Type Parse(const std::string& greeting,
+           const std::string& error)
+{
+    Type answer;
+    std::cout << greeting 
+              << std::endl; 
+    while(!(std::cin >> answer))
+    {
+        std::cout << error 
+                  << std::endl;
+    }
+    
+    return answer;
+}
+
+std::string ParseTradeApp()
+{
+    nlohmann::json tradeApp;
+    tradeApp["Type"] = Parse<std::string>("Enter type(sell or buy): ", 
+                                          "Error parse type");
+    tradeApp["Volume"] = Parse<int>("Enter volume: ", 
+                                    "Error parse volume");
+    tradeApp["Price"] = Parse<int>("Enter price: ", 
+                                   "Error parse price");
+    return tradeApp.dump();                               
+}
+
 int main()
 {
     try
@@ -68,7 +97,8 @@ int main()
             std::cout << "Menu:\n"
                          "1) Hello Request\n"
                          "2) Check Balance\n"
-                         "3) Exit\n"
+                         "3) Make trade application\n"
+                         "4) Exit\n"
                          << std::endl;
 
             short menu_option_num;
@@ -92,6 +122,12 @@ int main()
                     break;
                 }
                 case 3:
+                {
+                    SendMessage(s, my_id, Requests::AddTradeApp, ParseTradeApp());
+                    std::cout << ReadMessage(s);
+                    break;
+                }
+                case 4:
                 {
                     exit(0);
                     break;

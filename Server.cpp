@@ -1,5 +1,7 @@
 #include <cstdlib>
 #include <iostream>
+#include <deque>
+#include <queue>
 #include <boost/bind/bind.hpp>
 #include <boost/asio.hpp>
 #include "json.hpp"
@@ -48,9 +50,185 @@ public:
         }
     }
 
+    std::string CreateTradeApp(const std::string& aUserId,
+                               const std::string& TradeApplication)
+    {
+        const std::string error = "Error add trade application\n";
+        auto ta = nlohmann::json::parse(TradeApplication);
+        if (ta["Type"].empty() || ta["Type"].empty() || ta["Type"].empty())
+        {
+            return error;
+        } 
+        TradeApp::Type type = ParseTradeType(ta["Type"]);
+        if (type == TradeApp::Type::NotFound)
+        {
+            return error;
+        }
+        int price = ta["Price"];
+        int volume = ta["Volume"];
+        trade_apps_.emplace_back(std::stoi(aUserId),
+                                 type, 
+                                 volume,
+                                 price
+                                );
+        int trade_id = trade_apps_.size();
+        id_to_trade_app_[trade_id] = &trade_apps_.back();
+        if (type == TradeApp::Type::Buy)
+        {
+            price_to_ids_for_buy_[price].push(trade_id);
+        }
+        else if (type == TradeApp::Type::Sell)
+        {
+            price_to_ids_for_sell_[price].push(trade_id);
+        }
+        return "Success\n";
+    }
+
+    void DeleteTradeApp(int trade_id)
+    {
+        int price = id_to_trade_app_[trade_id]->price;
+        if (id_to_trade_app_[trade_id]->type == TradeApp::Type::Buy) {
+            price_to_ids_for_buy_[price].pop();
+            if (price_to_ids_for_buy_[price].empty()) 
+            {
+                price_to_ids_for_buy_.erase(price);
+            }
+        } 
+        else 
+        {
+            price_to_ids_for_sell_[price].pop();
+            if (price_to_ids_for_sell_[price].empty()) 
+            {
+                price_to_ids_for_sell_.erase(price);
+            }
+        } 
+        id_to_trade_app_.erase(trade_id);
+    }
+
+    void Transaction(int buy_user_id,
+                     int sell_user_id, 
+                     int USD, 
+                     int RUB
+                    ) 
+    {
+        auto& user_buy = mUsers[buy_user_id];
+        auto& user_sell = mUsers[sell_user_id];
+
+        user_buy.balance.USD += USD;
+        user_buy.balance.RUB -= RUB;
+
+        user_sell.balance.USD -= USD;
+        user_sell.balance.RUB += RUB;
+    }
+
+    void CalculateMatch(int buy_trade_id, int sell_trade_id)
+    {
+        auto buy_app = id_to_trade_app_[buy_trade_id];
+        auto sell_app = id_to_trade_app_[sell_trade_id];
+
+        /*int diff = buy_app->volume - sell_app->volume;
+        if (diff > 0)
+        {
+            buy_app->volume -= sell_app->volume;
+            sell_app->volume = 0;
+
+            Transaction(buy_app->user_id, 
+                        sell_app->user_id, 
+                        sell_app->volume,
+                        sell_app->volume * buy_app->price 
+                       );
+            
+            DeleteTradeApp(sell_trade_id);
+        }
+        else if (diff < 0)
+        {
+            sell_app->volume -= buy_app->volume;
+            buy_app->volume = 0;
+            
+            Transaction(buy_app->user_id, 
+                        sell_app->user_id, 
+                        buy_app->volume,
+                        buy_app->volume * buy_app->price 
+                       );
+            
+            DeleteTradeApp(buy_trade_id);
+        }
+        else
+        {
+
+            Transaction(buy_app->user_id, 
+                        sell_app->user_id, 
+                        buy_app->volume,
+                        buy_app->volume * buy_app->price 
+                       );
+            
+            DeleteTradeApp(sell_trade_id);
+            DeleteTradeApp(buy_trade_id);
+        }*/
+        int min_volume = std::min(buy_app->volume, sell_app->volume);
+
+        Transaction(buy_app->user_id, 
+                    sell_app->user_id, 
+                    min_volume,
+                    min_volume * buy_app->price 
+                   );
+
+        sell_app->volume -= min_volume;
+        if (sell_app->volume == 0)
+        {
+            DeleteTradeApp(sell_trade_id);
+        }
+
+        buy_app->volume -= min_volume;
+        if (buy_app->volume == 0)
+        {
+            DeleteTradeApp(buy_trade_id);
+        }
+    }
+
+    void CheckMatch()
+    {
+        bool calculations_required = true;
+        while (calculations_required)
+        {
+            if (!price_to_ids_for_buy_.empty() && !price_to_ids_for_sell_.empty()) {
+                const auto max_buy = price_to_ids_for_buy_.rbegin();
+                const auto min_sell = price_to_ids_for_sell_.begin();
+                calculations_required = max_buy->first >= min_sell->first;
+                if (calculations_required)
+                {
+                    CalculateMatch(max_buy->second.front(),
+                                min_sell->second.front() 
+                    );
+                }
+            }
+            else
+            {
+                calculations_required = false;
+            }
+        }
+    }
+
 private:
     // <UserId, User>
-    std::map<size_t, User> mUsers;
+    std::unordered_map<size_t, User> mUsers;
+
+    // Хранилище для торговых сделок
+    std::deque<TradeApp> trade_apps_;
+
+    // <TradeId, TradeAppS>
+    std::unordered_map<size_t, PtrTradeApp> id_to_trade_app_;
+
+    // <Price, queue<TradeId>>
+    std::map<int, std::queue<size_t>> price_to_ids_for_sell_;
+    std::map<int, std::queue<size_t>> price_to_ids_for_buy_;
+
+    TradeApp::Type ParseTradeType(const std::string type)
+    {   
+        if (type == "sell") return TradeApp::Sell;
+        if (type == "buy" ) return TradeApp::Buy;
+        return TradeApp::Type::NotFound;
+    }
 };
 
 Core& GetCore()
@@ -110,6 +288,14 @@ public:
                 // Это реквест на проверку суммы баланса.
                 // Находим имя пользователя по ID и говорим его баланс.
                 reply = "Your balance: \n" + GetCore().GetUserBalance(j["UserId"]) + '\n';
+            }
+            else if (reqType == Requests::AddTradeApp)
+            {
+                // Это реквест на добаление информации 
+                // о новой заявке от клиента 
+                reply = GetCore().CreateTradeApp(j["UserId"], j["Message"]);
+
+                GetCore().CheckMatch();
             }
 
             boost::asio::async_write(socket_,
@@ -181,6 +367,26 @@ private:
     tcp::acceptor acceptor_;
 };
 
+void test_create_application()
+{
+    GetCore().RegisterNewUser("Seva"); // 0
+    GetCore().RegisterNewUser("Andrei"); // 1
+    GetCore().RegisterNewUser("Oleg"); // 2
+
+    GetCore().CreateTradeApp("0", R"({"Price":62,"Type":"buy","Volume":10})");
+    GetCore().CheckMatch(); 
+
+    GetCore().CreateTradeApp("1", R"({"Price":63,"Type":"buy","Volume":20})");
+    GetCore().CheckMatch(); 
+
+    GetCore().CreateTradeApp("2", R"({"Price":61,"Type":"sell","Volume":50})");
+    GetCore().CheckMatch(); 
+
+    std::cout << "0: " << GetCore().GetUserBalance("0") << std::endl;
+    std::cout << "1: " << GetCore().GetUserBalance("1") << std::endl;
+    std::cout << "2: " << GetCore().GetUserBalance("2") << std::endl;
+}
+
 int main()
 {
     try
@@ -190,6 +396,7 @@ int main()
 
         server s(io_service);
 
+        //test_create_application();
         io_service.run();
     }
     catch (std::exception& e)

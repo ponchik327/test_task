@@ -1,5 +1,5 @@
 CMakeFiles/Server.dir/Server.cpp.o: \
- /home/linuksoid/code_cpp/tz_NtProgress/templateofclientservermatching/Server.cpp \
+ /home/linuksoid/code_cpp/tz_NtProgress/test_task/Server.cpp \
  /usr/include/stdc-predef.h /usr/include/c++/11/cstdlib \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -146,8 +146,17 @@ CMakeFiles/Server.dir/Server.cpp.o: \
  /usr/include/c++/11/bits/locale_facets.tcc \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
- /usr/include/c++/11/bits/istream.tcc /usr/include/boost/bind/bind.hpp \
- /usr/include/boost/config.hpp /usr/include/boost/config/user.hpp \
+ /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/deque \
+ /usr/include/c++/11/bits/stl_uninitialized.h \
+ /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
+ /usr/include/c++/11/queue /usr/include/c++/11/vector \
+ /usr/include/c++/11/bits/stl_vector.h \
+ /usr/include/c++/11/bits/stl_bvector.h \
+ /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_heap.h \
+ /usr/include/c++/11/bits/stl_queue.h \
+ /usr/include/c++/11/bits/uses_allocator.h \
+ /usr/include/boost/bind/bind.hpp /usr/include/boost/config.hpp \
+ /usr/include/boost/config/user.hpp \
  /usr/include/boost/config/detail/select_compiler_config.hpp \
  /usr/include/boost/config/compiler/gcc.hpp /usr/include/c++/11/cstddef \
  /usr/include/boost/config/detail/select_stdlib_config.hpp \
@@ -169,11 +178,9 @@ CMakeFiles/Server.dir/Server.cpp.o: \
  /usr/include/boost/core/addressof.hpp /usr/include/boost/mem_fn.hpp \
  /usr/include/boost/bind/mem_fn.hpp /usr/include/boost/get_pointer.hpp \
  /usr/include/boost/config/no_tr1/memory.hpp /usr/include/c++/11/memory \
- /usr/include/c++/11/bits/stl_uninitialized.h \
  /usr/include/c++/11/bits/stl_tempbuf.h \
  /usr/include/c++/11/bits/stl_raw_storage_iter.h \
  /usr/include/c++/11/bits/align.h /usr/include/c++/11/bit \
- /usr/include/c++/11/bits/uses_allocator.h \
  /usr/include/c++/11/bits/unique_ptr.h /usr/include/c++/11/utility \
  /usr/include/c++/11/bits/stl_relops.h /usr/include/c++/11/tuple \
  /usr/include/c++/11/array /usr/include/c++/11/bits/invoke.h \
@@ -310,12 +317,8 @@ CMakeFiles/Server.dir/Server.cpp.o: \
  /usr/include/c++/11/bits/enable_special_members.h \
  /usr/include/c++/11/bits/node_handle.h \
  /usr/include/c++/11/bits/unordered_map.h \
- /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/vector \
- /usr/include/c++/11/bits/stl_vector.h \
- /usr/include/c++/11/bits/stl_bvector.h \
- /usr/include/c++/11/bits/vector.tcc /usr/include/c++/11/bits/stl_algo.h \
+ /usr/include/c++/11/bits/erase_if.h /usr/include/c++/11/bits/stl_algo.h \
  /usr/include/c++/11/bits/algorithmfwd.h \
- /usr/include/c++/11/bits/stl_heap.h \
  /usr/include/c++/11/bits/uniform_int_dist.h /usr/include/c++/11/cstring \
  /usr/include/string.h /usr/include/strings.h \
  /usr/include/boost/cerrno.hpp \
@@ -1118,7 +1121,7 @@ CMakeFiles/Server.dir/Server.cpp.o: \
  /usr/include/boost/asio/windows/stream_handle.hpp \
  /usr/include/boost/asio/write_at.hpp \
  /usr/include/boost/asio/impl/write_at.hpp \
- /home/linuksoid/code_cpp/tz_NtProgress/templateofclientservermatching/json.hpp \
+ /home/linuksoid/code_cpp/tz_NtProgress/test_task/json.hpp \
  /usr/include/c++/11/numeric /usr/include/c++/11/bits/stl_numeric.h \
  /usr/include/c++/11/pstl/glue_numeric_defs.h \
  /usr/include/c++/11/forward_list /usr/include/c++/11/bits/forward_list.h \
@@ -1142,4 +1145,4 @@ CMakeFiles/Server.dir/Server.cpp.o: \
  /usr/include/c++/11/bits/locale_conv.h /usr/include/c++/11/iomanip \
  /usr/include/c++/11/bits/quoted_string.h /usr/include/c++/11/codecvt \
  /usr/include/c++/11/bits/fs_dir.h /usr/include/c++/11/bits/fs_ops.h \
- /home/linuksoid/code_cpp/tz_NtProgress/templateofclientservermatching/Common.hpp
+ /home/linuksoid/code_cpp/tz_NtProgress/test_task/Common.hpp
