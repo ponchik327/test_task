@@ -48,7 +48,7 @@ void session::handle_read(const boost::system::error_code& error,
         {
             // Это реквест на добаление информации 
             // о новой заявке от клиента 
-            reply = GetCore().CreateTradeApp(j["UserId"], j["Message"]);
+            reply = GetCore().CreateTradeApp(j["UserId"], j["Message"]) + '\n';
             
             // после добавления заявки, проверяем появилась ли новая сделка
             GetCore().CheckMatch();

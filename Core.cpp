@@ -96,7 +96,7 @@ string Core::CreateTradeApp(const string& aUserId,
         price_to_ids_for_sell_[price].push(trade_id);
     }
 
-    return res_validate + '\n';
+    return res_validate;
 }
 
 void Core::DeleteTradeApp(int trade_id)

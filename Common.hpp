@@ -27,8 +27,8 @@ struct Balance {
 
     std::string ToString()
     {
-        return '\n' + "USD: " + std::to_string(USD) +
-               '\n' + "RUB: " + std::to_string(RUB);
+        return "USD: " + std::to_string(USD) + '\n' +
+               "RUB: " + std::to_string(RUB);
     }
 };
 

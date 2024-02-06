@@ -31,7 +31,7 @@ int main()
 
         server s(io_service);
 
-        test_create_application();
+        //test_create_application();
         io_service.run();
     }
     catch (std::exception& e)
