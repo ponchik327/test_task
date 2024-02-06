@@ -12,6 +12,7 @@ SET(SRC_SERVER_FILES
     Server.cpp Server.h 
     Core.cpp Core.h 
     Common.hpp
+    tests.hpp
     json.hpp)
 
 SET(SRC_CLIENT_FILES 

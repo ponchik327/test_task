@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <vector>
 #include <boost/asio.hpp>
@@ -31,10 +32,12 @@ Type Parse(const std::string& greeting,
     Type answer;
     for (;;) {
         std::cout << greeting << std::flush;
-        if ((std::cin >> answer).good()) break;
+        std::cin >> answer;
+        while(std::cin.get() != '\n');
+        if (std::cin.good()) break;
         std::cin.clear();
+        while(std::cin.get() != '\n');
         std::cout << error << '\n';
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
     }
     return answer;
 }
