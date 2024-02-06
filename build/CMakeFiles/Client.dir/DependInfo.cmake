@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/linuksoid/code_cpp/tz_NtProgress/test_task/Client.cpp" "CMakeFiles/Client.dir/Client.cpp.o" "gcc" "CMakeFiles/Client.dir/Client.cpp.o.d"
+  "/home/linuksoid/code_cpp/tz_NtProgress/test_task/main_client.cpp" "CMakeFiles/Client.dir/main_client.cpp.o" "gcc" "CMakeFiles/Client.dir/main_client.cpp.o.d"
   )
 
 # Targets to which this target links.

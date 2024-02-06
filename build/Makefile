@@ -166,6 +166,30 @@ Client.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/Client.cpp.s
 .PHONY : Client.cpp.s
 
+Core.o: Core.cpp.o
+.PHONY : Core.o
+
+# target to build an object file
+Core.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Core.cpp.o
+.PHONY : Core.cpp.o
+
+Core.i: Core.cpp.i
+.PHONY : Core.i
+
+# target to preprocess a source file
+Core.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Core.cpp.i
+.PHONY : Core.cpp.i
+
+Core.s: Core.cpp.s
+.PHONY : Core.s
+
+# target to generate assembly for a file
+Core.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Core.cpp.s
+.PHONY : Core.cpp.s
+
 Server.o: Server.cpp.o
 .PHONY : Server.o
 
@@ -190,6 +214,54 @@ Server.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/Server.cpp.s
 .PHONY : Server.cpp.s
 
+main_client.o: main_client.cpp.o
+.PHONY : main_client.o
+
+# target to build an object file
+main_client.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/main_client.cpp.o
+.PHONY : main_client.cpp.o
+
+main_client.i: main_client.cpp.i
+.PHONY : main_client.i
+
+# target to preprocess a source file
+main_client.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/main_client.cpp.i
+.PHONY : main_client.cpp.i
+
+main_client.s: main_client.cpp.s
+.PHONY : main_client.s
+
+# target to generate assembly for a file
+main_client.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/main_client.cpp.s
+.PHONY : main_client.cpp.s
+
+main_server.o: main_server.cpp.o
+.PHONY : main_server.o
+
+# target to build an object file
+main_server.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/main_server.cpp.o
+.PHONY : main_server.cpp.o
+
+main_server.i: main_server.cpp.i
+.PHONY : main_server.i
+
+# target to preprocess a source file
+main_server.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/main_server.cpp.i
+.PHONY : main_server.cpp.i
+
+main_server.s: main_server.cpp.s
+.PHONY : main_server.s
+
+# target to generate assembly for a file
+main_server.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/main_server.cpp.s
+.PHONY : main_server.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -203,9 +275,18 @@ help:
 	@echo "... Client.o"
 	@echo "... Client.i"
 	@echo "... Client.s"
+	@echo "... Core.o"
+	@echo "... Core.i"
+	@echo "... Core.s"
 	@echo "... Server.o"
 	@echo "... Server.i"
 	@echo "... Server.s"
+	@echo "... main_client.o"
+	@echo "... main_client.i"
+	@echo "... main_client.s"
+	@echo "... main_server.o"
+	@echo "... main_server.i"
+	@echo "... main_server.s"
 .PHONY : help
 
 

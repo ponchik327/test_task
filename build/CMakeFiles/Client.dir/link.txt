@@ -1,1 +1,1 @@
-/usr/bin/g++ -g CMakeFiles/Client.dir/Client.cpp.o -o Client  /usr/lib/x86_64-linux-gnu/libboost_system.so.1.74.0 
+/usr/bin/g++ -g CMakeFiles/Client.dir/main_client.cpp.o CMakeFiles/Client.dir/Client.cpp.o -o Client  /usr/lib/x86_64-linux-gnu/libboost_system.so.1.74.0 

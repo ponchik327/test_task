@@ -13,14 +13,22 @@ namespace Requests
     static std::string AddTradeApp = "Add";
 }
 
+namespace StatusReturn
+{
+    static std::string Success = "Success";
+    static std::string ErrorUnknownUser = "Error: unknown user";
+    static std::string ErrorEmptyData = "Error: data empty";
+    static std::string ErrorType = "Error: invalid type";
+}
+
 struct Balance {
     int USD = {};
     int RUB = {};
 
     std::string ToString()
     {
-        return "USD: " + std::to_string(USD) + '\n'
-             + "RUB: " + std::to_string(RUB);
+        return '\n' + "USD: " + std::to_string(USD) +
+               '\n' + "RUB: " + std::to_string(RUB);
     }
 };
 
@@ -35,8 +43,7 @@ struct TradeApp
     enum Type
     {
         Sell,
-        Buy,
-        NotFound
+        Buy
     };
 
     TradeApp(int u_id, 

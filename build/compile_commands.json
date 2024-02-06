@@ -1,8 +1,23 @@
 [
 {
   "directory": "/home/linuksoid/code_cpp/tz_NtProgress/test_task/build",
+  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_SYSTEM_DYN_LINK  -g -o CMakeFiles/Server.dir/main_server.cpp.o -c /home/linuksoid/code_cpp/tz_NtProgress/test_task/main_server.cpp",
+  "file": "/home/linuksoid/code_cpp/tz_NtProgress/test_task/main_server.cpp"
+},
+{
+  "directory": "/home/linuksoid/code_cpp/tz_NtProgress/test_task/build",
   "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_SYSTEM_DYN_LINK  -g -o CMakeFiles/Server.dir/Server.cpp.o -c /home/linuksoid/code_cpp/tz_NtProgress/test_task/Server.cpp",
   "file": "/home/linuksoid/code_cpp/tz_NtProgress/test_task/Server.cpp"
+},
+{
+  "directory": "/home/linuksoid/code_cpp/tz_NtProgress/test_task/build",
+  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_SYSTEM_DYN_LINK  -g -o CMakeFiles/Server.dir/Core.cpp.o -c /home/linuksoid/code_cpp/tz_NtProgress/test_task/Core.cpp",
+  "file": "/home/linuksoid/code_cpp/tz_NtProgress/test_task/Core.cpp"
+},
+{
+  "directory": "/home/linuksoid/code_cpp/tz_NtProgress/test_task/build",
+  "command": "/usr/bin/g++ -DBOOST_ALL_NO_LIB -DBOOST_SYSTEM_DYN_LINK  -g -o CMakeFiles/Client.dir/main_client.cpp.o -c /home/linuksoid/code_cpp/tz_NtProgress/test_task/main_client.cpp",
+  "file": "/home/linuksoid/code_cpp/tz_NtProgress/test_task/main_client.cpp"
 },
 {
   "directory": "/home/linuksoid/code_cpp/tz_NtProgress/test_task/build",

@@ -69,10 +69,24 @@ include CMakeFiles/Server.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Server.dir/flags.make
 
+CMakeFiles/Server.dir/main_server.cpp.o: CMakeFiles/Server.dir/flags.make
+CMakeFiles/Server.dir/main_server.cpp.o: ../main_server.cpp
+CMakeFiles/Server.dir/main_server.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Server.dir/main_server.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/main_server.cpp.o -MF CMakeFiles/Server.dir/main_server.cpp.o.d -o CMakeFiles/Server.dir/main_server.cpp.o -c /home/linuksoid/code_cpp/tz_NtProgress/test_task/main_server.cpp
+
+CMakeFiles/Server.dir/main_server.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/main_server.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/linuksoid/code_cpp/tz_NtProgress/test_task/main_server.cpp > CMakeFiles/Server.dir/main_server.cpp.i
+
+CMakeFiles/Server.dir/main_server.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/main_server.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/linuksoid/code_cpp/tz_NtProgress/test_task/main_server.cpp -o CMakeFiles/Server.dir/main_server.cpp.s
+
 CMakeFiles/Server.dir/Server.cpp.o: CMakeFiles/Server.dir/flags.make
 CMakeFiles/Server.dir/Server.cpp.o: ../Server.cpp
 CMakeFiles/Server.dir/Server.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Server.dir/Server.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Server.dir/Server.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/Server.cpp.o -MF CMakeFiles/Server.dir/Server.cpp.o.d -o CMakeFiles/Server.dir/Server.cpp.o -c /home/linuksoid/code_cpp/tz_NtProgress/test_task/Server.cpp
 
 CMakeFiles/Server.dir/Server.cpp.i: cmake_force
@@ -83,18 +97,36 @@ CMakeFiles/Server.dir/Server.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Server.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/linuksoid/code_cpp/tz_NtProgress/test_task/Server.cpp -o CMakeFiles/Server.dir/Server.cpp.s
 
+CMakeFiles/Server.dir/Core.cpp.o: CMakeFiles/Server.dir/flags.make
+CMakeFiles/Server.dir/Core.cpp.o: ../Core.cpp
+CMakeFiles/Server.dir/Core.cpp.o: CMakeFiles/Server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Server.dir/Core.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Server.dir/Core.cpp.o -MF CMakeFiles/Server.dir/Core.cpp.o.d -o CMakeFiles/Server.dir/Core.cpp.o -c /home/linuksoid/code_cpp/tz_NtProgress/test_task/Core.cpp
+
+CMakeFiles/Server.dir/Core.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Server.dir/Core.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/linuksoid/code_cpp/tz_NtProgress/test_task/Core.cpp > CMakeFiles/Server.dir/Core.cpp.i
+
+CMakeFiles/Server.dir/Core.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Server.dir/Core.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/linuksoid/code_cpp/tz_NtProgress/test_task/Core.cpp -o CMakeFiles/Server.dir/Core.cpp.s
+
 # Object files for target Server
 Server_OBJECTS = \
-"CMakeFiles/Server.dir/Server.cpp.o"
+"CMakeFiles/Server.dir/main_server.cpp.o" \
+"CMakeFiles/Server.dir/Server.cpp.o" \
+"CMakeFiles/Server.dir/Core.cpp.o"
 
 # External object files for target Server
 Server_EXTERNAL_OBJECTS =
 
+Server: CMakeFiles/Server.dir/main_server.cpp.o
 Server: CMakeFiles/Server.dir/Server.cpp.o
+Server: CMakeFiles/Server.dir/Core.cpp.o
 Server: CMakeFiles/Server.dir/build.make
 Server: /usr/lib/x86_64-linux-gnu/libboost_system.so.1.74.0
 Server: CMakeFiles/Server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

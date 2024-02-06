@@ -83,12 +83,12 @@ clean: CMakeFiles/Client.dir/clean
 CMakeFiles/Server.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Server.dir/build.make CMakeFiles/Server.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles --progress-num=3,4 "Built target Server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles --progress-num=4,5,6,7 "Built target Server"
 .PHONY : CMakeFiles/Server.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Server.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Server.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles 0
 .PHONY : CMakeFiles/Server.dir/rule
@@ -109,12 +109,12 @@ CMakeFiles/Server.dir/clean:
 CMakeFiles/Client.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Client.dir/build.make CMakeFiles/Client.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles --progress-num=1,2 "Built target Client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles --progress-num=1,2,3 "Built target Client"
 .PHONY : CMakeFiles/Client.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/Client.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/linuksoid/code_cpp/tz_NtProgress/test_task/build/CMakeFiles 0
 .PHONY : CMakeFiles/Client.dir/rule
